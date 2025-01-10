@@ -7,7 +7,7 @@ const { SUPPORTED_COINS } = require("../constants");
  */
 const serializeCryptoData = (data) => {
   return data.map((coin) => ({
-    coinId: coin.id,
+    coin: coin.id,
     price: coin.current_price,
     marketCap: coin.market_cap,
     change24h: coin.price_change_percentage_24h,
