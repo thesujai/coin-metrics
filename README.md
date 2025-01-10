@@ -32,7 +32,7 @@ Running the App
 
 1. Clone the repo:
 ```
-git clone https://github.com/your-github-username/coin-metrics.git
+git clone https://github.com/thesujai/coin-metrics.git
 cd coin-metrics
 ```
 
