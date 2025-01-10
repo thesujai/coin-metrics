@@ -12,4 +12,6 @@ const cryptoSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now, immutable: true },
 });
 
+cryptoSchema.index({ coin: 1, timestamp: -1 });
+
 module.exports = mongoose.model("Crypto", cryptoSchema);
