@@ -1,7 +1,7 @@
-const express = require("express");
-const updateCoinInfo = require("./jobs/updateCoinInfo");
-const connectToDatabase = require("./config/database");
-const dotenv = require("dotenv");
+const express = require('express');
+const updateCoinInfo = require('./jobs/updateCoinInfo');
+const connectToDatabase = require('./config/database');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
