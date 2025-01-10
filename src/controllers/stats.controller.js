@@ -10,7 +10,7 @@ const getStats = async (req, res) => {
             .json({ error: "Query param 'coin' is required" });
 
     // as timestamp is indexed, the query wont take a lot of time
-    const latest = await Crypto.findOne({ coin }).sort({ timestamp: -1 });
+    const latest = await Crypto.findOne({ coin }).sort({ createdAt: -1 });
     if (!latest) return res.status(404).json({ error: 'Data not found' });
 
     res.json({
