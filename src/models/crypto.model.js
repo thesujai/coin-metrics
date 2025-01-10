@@ -6,9 +6,9 @@ const cryptoSchema = new mongoose.Schema({
     required: true,
     enum: ["bitcoin", "ethereum", "matic-network"],
   },
-  price: { type: Number, required: true },
-  marketCap: { type: Number, required: true },
-  change24h: { type: Number, required: true },
+  price: { type: Number, required: true, min: 0 },
+  marketCap: { type: Number, required: true, min: 0 },
+  change24h: { type: Number, required: true, min: -100, max: 100 },
   timestamp: { type: Date, default: Date.now },
 });
 
