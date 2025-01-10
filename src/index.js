@@ -1,25 +1,34 @@
 const express = require('express');
-const updateCoinInfo = require('./jobs/updateCoinInfo');
-const connectToDatabase = require('./config/database');
 const dotenv = require('dotenv');
+const connectToDatabase = require('./config/database');
 const apiRoutes = require('./routes/api.routes');
-const updateDeviationJob = require('./jobs/updateCoinDeviation');
-const deleteOldCryptoInfo = require('./jobs/deleteOldCoinInfo');
-const rateLimiter = require('./middlewares/rateLimiter'); 
+const rateLimiter = require('./middlewares/rateLimiter');
 
-dotenv.config();
+const { scheduleJobs } = require('./jobs/scheduler');
 
-connectToDatabase();
-updateCoinInfo();
-updateDeviationJob();
-deleteOldCryptoInfo();
+const main = async () => {
+    try {
+        dotenv.config();
 
-const app = express();
-app.use(express.json());
-app.use(rateLimiter);
+        await connectToDatabase();
 
-// all routes:
-app.use('/api/v1/', apiRoutes);
+        const app = express();
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+        // Middleware
+        app.use(express.json());
+        app.use(rateLimiter);
+
+        scheduleJobs();
+
+        // routes
+        app.use('/api/v1', apiRoutes);
+
+        const PORT = process.env.PORT || 3000;
+        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    } catch (error) {
+        console.error('Error during initialization:', error);
+        process.exit(1);
+    }
+};
+
+main();
