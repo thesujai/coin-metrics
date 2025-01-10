@@ -18,7 +18,6 @@ const updateDeviationJob = () => {
                     { deviation },
                     { upsert: true, new: true },
                 );
-                console.log(`Deviation updated for ${coin}: ${deviation}`);
             }
         } catch (err) {
             console.error('Error updating deviations:', err.message);

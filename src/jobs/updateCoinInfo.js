@@ -8,7 +8,6 @@ const updateCoinInfo = () => {
         const data = await coingeckoMarketAPI();
         if (data.length > 0) {
             await Crypto.insertMany(data);
-            console.log('Crypto data updated:', new Date());
         }
     });
 };
