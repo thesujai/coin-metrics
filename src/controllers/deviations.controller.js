@@ -1,4 +1,5 @@
 const Deviation = require("../models/deviation.model")
+const { SUPPORTED_COINS } = require("../constants")
 
 const getDeviation = async (req, res) => {
     try {
@@ -6,7 +7,11 @@ const getDeviation = async (req, res) => {
         const { coin } = req.params;
         if (!coin)
             return res.status(400).json({ error: "Query param 'coin' is required" });
-        
+
+        if (!SUPPORTED_COINS.includes(coin)) {
+            return res.status(400).json({ error: "Unsupported coin" });
+        }
+
         const deviationData = await Deviation.findOne({ coin });
 
         if (!deviationData) {
