@@ -83,14 +83,16 @@ button:hover {
     color: #6c757d;
 }
 
-#toggleRawStats, #toggleRawDeviation {
+#toggleRawStats,
+#toggleRawDeviation {
     text-decoration: underline;
     color: #4977a5;
     cursor: pointer;
     font-weight: bold;
 }
 
-#toggleRawStats:hover, #toggleRawDeviation:hover {
+#toggleRawStats:hover,
+#toggleRawDeviation:hover {
     color: whitesmoke;
     text-decoration: underline;
 }

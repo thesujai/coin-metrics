@@ -2,24 +2,24 @@
 
 Track cryptocurrency data and provides statistical insights.
 
-*Visit Hosted Site* https://tinyurl.com/coin-metrics-thesujai
+_Visit Hosted Site_ https://tinyurl.com/coin-metrics-thesujai
 
 ![Project](./assets/project-ss.png)
 
 # How It Works
 
 1. **Crypto Data:** The app fetches real-time coin data (price, market cap, 24h change) and stores it in a MongoDB database.
-    
 2. **Deviation:** The app calculates the deviation of a coin's price and stores it in the database.
 
 # Schema
+
 1. **Crypto**
 
 ![Schema](./assets/crypto-model.png)
 <br/>
 
 2. **Deviation**
-![Schema](./assets/deviation-model.png)
+   ![Schema](./assets/deviation-model.png)
 
 # Jobs
 
@@ -31,6 +31,7 @@ Track cryptocurrency data and provides statistical insights.
 Running the App
 
 1. Clone the repo:
+
 ```
 git clone https://github.com/thesujai/coin-metrics.git
 cd coin-metrics
@@ -57,10 +58,9 @@ yarn start
 
 5. Open your browser and go to `http://localhost:3000` to view the app.
 
-
 # APIs
 
-1. **Get Coin Stats:** /api/v1/stats/:coin 
+1. **Get Coin Stats:** /api/v1/stats/:coin
 2. **Get Coin Deviation:** /api/v1/deviation/:coin
 
 License
