@@ -16,19 +16,19 @@ const getDeviation = (prices) => {
 
 const calculateDeviation = async (coin) => {
     try {
-            const prices = await Crypto.find({ coin })
-                .sort({ createdAt: -1 })
-                .limit(100)
-                .select('price')
-                .then((records) => records.map((record) => record.price));
+        const prices = await Crypto.find({ coin })
+            .sort({ createdAt: -1 })
+            .limit(100)
+            .select('price')
+            .then((records) => records.map((record) => record.price));
 
-            if (prices.length === 0) {
-                return null;
-            }
+        if (prices.length === 0) {
+            return null;
+        }
 
-            const deviation = getDeviation(prices);
+        const deviation = getDeviation(prices);
 
-            return deviation;
+        return deviation;
     } catch (error) {
         console.error('Error calculating deviation:', error.message);
     }

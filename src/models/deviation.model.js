@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {SUPPORTED_COINS} = require('../constants');
+const { SUPPORTED_COINS } = require('../constants');
 
 const deviationSchema = new mongoose.Schema(
     {

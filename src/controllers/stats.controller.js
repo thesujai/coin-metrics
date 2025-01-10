@@ -1,5 +1,3 @@
-const express = require('express');
-const router = express.Router();
 const Crypto = require('../models/crypto.model');
 
 const getStats = async (req, res) => {
