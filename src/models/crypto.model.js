@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
+const { SUPPORTED_COINS } = require("../constants");
 
 const cryptoSchema = new mongoose.Schema({
   coin: {
     type: String,
     required: true,
-    enum: ["bitcoin", "ethereum", "matic-network"],
+    enum: SUPPORTED_COINS,
   },
   price: { type: Number, required: true, min: 0 },
   marketCap: { type: Number, required: true, min: 0 },
