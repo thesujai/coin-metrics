@@ -9,7 +9,7 @@ const cryptoSchema = new mongoose.Schema({
   price: { type: Number, required: true, min: 0 },
   marketCap: { type: Number, required: true, min: 0 },
   change24h: { type: Number, required: true, min: -100, max: 100 },
-  timestamp: { type: Date, default: Date.now },
+  timestamp: { type: Date, default: Date.now, immutable: true },
 });
 
 module.exports = mongoose.model("Crypto", cryptoSchema);
