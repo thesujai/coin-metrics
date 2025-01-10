@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const apiRoutes = require('./routes/api.routes');
 const updateDeviationJob = require('./jobs/updateCoinDeviation');
 const deleteOldCryptoInfo = require('./jobs/deleteOldCoinInfo');
+const rateLimiter = require('./middlewares/rateLimiter'); 
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ deleteOldCryptoInfo();
 
 const app = express();
 app.use(express.json());
+app.use(rateLimiter);
 
 // all routes:
 app.use('/api/v1/', apiRoutes);
