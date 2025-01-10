@@ -1,50 +1,84 @@
-const coinSelect = document.getElementById('coin-select');
-const cryptoStats = document.getElementById('crypto-stats');
-const deviationData = document.getElementById('deviation-data');
+async function getStats() {
+    const coin = document.getElementById('coinStats').value;
+    if (!coin) {
+        alert("Please select a coin");
+        return;
+    }
 
-const fetchStats = async (coin) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/v1/stats/${coin}`);
+        const response = await fetch(`/api/v1/stats/${coin}`);
         const data = await response.json();
 
-        if (data.error) {
-            cryptoStats.innerHTML = `<p>Error: ${data.error}</p>`;
-        } else {
-            cryptoStats.innerHTML = `
-                <p><strong>Price:</strong> $${data.price}</p>
-                <p><strong>Market Cap:</strong> $${data.marketCap}</p>
-                <p><strong>24h Change:</strong> ${data["24hChange"]}%</p>
-            `;
-        }
-    } catch (error) {
-        cryptoStats.innerHTML = `<p>Error fetching data</p>`;
-    }
-};
+        let content = `<strong>API Called:</strong> /api/v1/stats/${coin}<br>`;
 
-const fetchDeviation = async (coin) => {
+        if (response.ok) {
+            content += `
+                <strong>Price:</strong> $${data.price}<br>
+                <strong>Market Cap:</strong> $${data.marketCap}<br>
+                <strong>24h Change:</strong> ${data['24hChange']}%
+            `;
+        } else {
+            content += `<strong>Error:</strong> ${data.error}`;
+        }
+
+        document.getElementById('statsResponse').innerHTML = content;
+        
+        document.getElementById('rawStatsResponse').innerHTML = formatJson(data);
+
+        document.getElementById('toggleRawStats').style.display = 'inline-block';
+
+    } catch (error) {
+        document.getElementById('statsResponse').innerHTML = `<strong>Error:</strong> ${error.message}`;
+    }
+}
+
+async function getDeviation() {
+    const coin = document.getElementById('coinDeviation').value;
+    if (!coin) {
+        alert("Please select a coin");
+        return;
+    }
+
     try {
-        const response = await fetch(`http://localhost:3000/api/v1/deviations/${coin}`);
+        const response = await fetch(`/api/v1/deviations/${coin}`);
         const data = await response.json();
 
-        if (data.error) {
-            deviationData.innerHTML = `<p>Error: ${data.error}</p>`;
+        let content = `<strong>API Called:</strong> /api/v1/deviations/${coin}<br>`;
+
+        if (response.ok) {
+            content += `<strong>Deviation:</strong> ${data.deviation}%`;
         } else {
-            deviationData.innerHTML = `
-                <p><strong>Deviation:</strong> ${data.deviation}%</p>
-            `;
+            content += `<strong>Error:</strong> ${data.error}`;
         }
+
+        document.getElementById('deviationResponse').innerHTML = content;
+        
+        document.getElementById('rawDeviationResponse').innerHTML = formatJson(data);
+
+        document.getElementById('toggleRawDeviation').style.display = 'inline-block';
+
     } catch (error) {
-        console.log(error)
-        deviationData.innerHTML = `<p>Error fetching deviation</p>`;
+        document.getElementById('deviationResponse').innerHTML = `<strong>Error:</strong> ${error.message}`;
     }
-};
+}
 
-// Fetch data for the default coin (Bitcoin)
-fetchStats(coinSelect.value);
-fetchDeviation(coinSelect.value);
+function formatJson(data) {
+    return `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+}
 
-// Update stats and deviation when a new coin is selected
-coinSelect.addEventListener('change', (event) => {
-    fetchStats(event.target.value);
-    fetchDeviation(event.target.value);
-});
+function toggleRawResponse(type) {
+    const rawResponse = document.getElementById(`raw${capitalizeFirstLetter(type)}Response`);
+    const toggleButton = document.getElementById(`toggleRaw${capitalizeFirstLetter(type)}`);
+
+    if (rawResponse.style.display === "none") {
+        rawResponse.style.display = "block";
+        toggleButton.innerHTML = "Hide Raw Response";
+    } else {
+        rawResponse.style.display = "none";
+        toggleButton.innerHTML = "Show Raw Response";
+    }
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
