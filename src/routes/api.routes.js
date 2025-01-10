@@ -1,6 +1,6 @@
 const express = require('express');
 const getStats = require('../controllers/stats.controller');
-const getDeviation = require("../controllers/deviations.controller")
+const getDeviation = require('../controllers/deviations.controller');
 
 const router = express.Router();
 
