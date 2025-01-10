@@ -4,12 +4,14 @@ const connectToDatabase = require('./config/database');
 const dotenv = require('dotenv');
 const apiRoutes = require('./routes/api.routes');
 const updateDeviationJob = require('./jobs/updateCoinDeviation');
+const deleteOldCryptoInfo = require('./jobs/deleteOldCoinInfo');
 
 dotenv.config();
 
 connectToDatabase();
 updateCoinInfo();
 updateDeviationJob();
+deleteOldCryptoInfo();
 
 const app = express();
 app.use(express.json());
