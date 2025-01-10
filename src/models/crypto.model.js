@@ -15,6 +15,7 @@ const cryptoSchema = new mongoose.Schema(
     { timestamps: true },
 );
 
-cryptoSchema.index({ coin: 1, timestamp: -1 });
+CryptoSchema.index({ coin: 1, createdAt: -1 });
+CryptoSchema.index({ createdAt: -1 });
 
 module.exports = mongoose.model('Crypto', cryptoSchema);
